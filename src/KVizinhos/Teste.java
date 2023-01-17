@@ -8,7 +8,7 @@ import java.util.List;
 public class Teste  {
     public static void main(String[] args) {
         List<Classificado> objetoC = new ArrayList<>();
-        List<Classificado> knn = new ArrayList();
+        List<Classificado> knn = new ArrayList<>();
         Random r = new Random();
         Integer K = 3;
 

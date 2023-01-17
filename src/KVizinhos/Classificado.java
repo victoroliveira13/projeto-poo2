@@ -17,7 +17,7 @@ public class Classificado extends Objeto implements Comparable<Classificado>{
     }
 
     @Override
-    public void setX(double X) {
+    public void setX(double x) {
         this.x = x;
     }
 
@@ -27,7 +27,7 @@ public class Classificado extends Objeto implements Comparable<Classificado>{
     }
 
     @Override
-    public void setY(double Y) {
+    public void setY(double y) {
         this.y = y;       
     }
 
