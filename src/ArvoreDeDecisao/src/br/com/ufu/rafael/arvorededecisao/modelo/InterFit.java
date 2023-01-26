@@ -1,6 +1,5 @@
 package br.com.ufu.rafael.arvorededecisao.modelo;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class InterFit {
@@ -8,7 +7,7 @@ public class InterFit {
 	private Integer numeroArvores;
 	private Double medidaInformacao;
 	private Integer tipoTarefa;  //0-Regressão, 1-Classificação
-	private Integer avaliacaoModelo; //1-Insatisfatorio, 2-Ruim, 3-Bom, 4-Muito bom
+	private Integer avaliacaoModelo; //1-Insatisfatorio, 2-Regular, 3-Bom, 4-Muito bom
 	private char modo;  //U-Unfitted  F-Fitted  I-IterFit
 	
 	public InterFit(Integer numeroArvores, Integer tipoTarefa, Integer avaliacaoModelo) {
@@ -54,84 +53,60 @@ public class InterFit {
 		this.modo = modo;
 	}
 			
-	public Cachorro fit(Cachorro cachorro) {
+	public void fit(List<Integer> numeros) {
 						
-		try {
-					
-			DecimalFormat df = new DecimalFormat("#.##");
-			cachorro.setPeso(Double.valueOf(df.format(cachorro.getPeso())));
-					
-		} catch(Exception e) {
-					
-			System.out.println("Valor do peso nao pode ser normalizado.");
-					
-		}
-				
-		try {
-					
-			cachorro.setSexo(Character.toUpperCase(cachorro.getSexo()));
-					
-		} catch(Exception e) {
-					
-			System.out.println("Valor para a variavel sexo nao pode ser normalizado.");
-					
-		}
-				
-		return cachorro;
+		System.out.println("\nAjuste de dados do método fit do modo InterFit.\n");
 				
 	}
 		
-	public Cachorro predict(Cachorro cachorro) {
+	public void predict(Integer novoNumero) {
 			
-		return cachorro;
+		System.out.println("\nRealizado a predicao desse novo dado pelo modelo InterFit.");
 			
 	}
 		
-	public void avaliaModelo(List<Cachorro> cachorro) {
-		
-		Integer ind = 0;
-		for(Cachorro cao: cachorro) {
+	public Integer avaliaModelo(List<Integer> numeros) {
+		//A arvore de decisao consiste em selecionar pessoas que tiveram uma vida razoavelmente longa.
+		Double media = 0.0;
+		for(Integer numero: numeros) {
 			
-			ind++;
-			if(cao.getTamanho()>0.40 && cao.getTamanho()<0.50) {
-				if(cao.getPeso()>25 && cao.getPeso()<35) {
-					
-					this.medidaInformacao++; 
-					
-				}
+			if(numero>40 && numero<110) {
+				this.medidaInformacao++;
 			}
-		}	
-		
-		if((medidaInformacao/ind)<0.2)	{
-			
-			this.setAvaliacaoModelo(1);
-			this.setModo('U');
-			
-		} else if((medidaInformacao/ind)>=0.2 && (medidaInformacao/ind)<0.4){
-			
-			this.setAvaliacaoModelo(2);
-			this.setModo('I');
-			
-		} else if((medidaInformacao/ind)>=0.4 && (medidaInformacao/ind)<0.65){
-			
-			this.setAvaliacaoModelo(3);
-			this.setModo('F');
-			
-		} else if((medidaInformacao/ind)>=0.65){
-			
-			this.setAvaliacaoModelo(4);
-			this.setModo('F');
-			
 		}
+		
+		this.setMedidaInformacao(this.medidaInformacao);
+			
+			media = this.medidaInformacao/numeros.size();
+			
+			if(media>0.70) {
+				this.setAvaliacaoModelo(4);
+			}
+			else if(media>0.60 && media<=0.80) {
+				this.setAvaliacaoModelo(3);
+			}
+			else if(media>0.40 && media<=0.60) {
+				this.setAvaliacaoModelo(2);
+			}
+			else {
+				this.setAvaliacaoModelo(1);
+				 }
+		
+		this.setModo('F');
+		return this.getAvaliacaoModelo();
 				
 	}
 		
-	public void imprimeModelo() {
+	public void imprimeModelo(List<Integer> numeros) {
 			
-		System.out.println("Numero de arvores = " + this.getNumeroArvores() + "\n" + this.getMedidaInformacao() +
-				"\n" + this.getTipoTarefa() +  "\n" + this.getAvaliacaoModelo() + "\n" + this.getModo());
-			
+		System.out.println("Modo InterFit\n");
+		for(Integer numero: numeros) {
+			System.out.println("Valor inteiro = " + numero + "\n");
+		}
+		
+		System.out.println("\nAvaliacao Modelo = " + avaliaModelo(numeros) + "\n" + "Modo = " + this.getModo() + "\n" + "Numero de arvores = " + this.getNumeroArvores() + 
+						   "\n" + "Medida informacao = " + this.getMedidaInformacao() + this.getTipoTarefa() + "\n");
+		 
 	}
 		
-
 }

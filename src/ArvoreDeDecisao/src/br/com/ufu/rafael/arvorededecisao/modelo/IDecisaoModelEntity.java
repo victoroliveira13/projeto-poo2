@@ -5,12 +5,12 @@ import java.util.List;
 
 public interface IDecisaoModelEntity {
 	
-	public List<Cachorro> fit(List<Cachorro> cachorros);
+	public void fit(List<Integer> numeros);
 	
-	public List<Cachorro> predict(List<Cachorro> cachorros);
+	public void predict(Integer numero);
 	
-	public void avaliaModelo(List<Cachorro> cachorro);
+	public Integer avaliaModelo(List<Integer> numeros);
 	
-	public void imprimeModelo();
+	public void imprimeModelo(List<Integer> numeros);
 
 }

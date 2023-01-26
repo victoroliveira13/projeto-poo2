@@ -4,24 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ufu.rafael.arvorededecisao.controle.IDecisaoModelContext;
-import br.com.ufu.rafael.arvorededecisao.modelo.Cachorro;
 import br.com.ufu.rafael.arvorededecisao.modelo.Unfitted;
 
 public class IDecisaoView {
 
 	public static void main(String[] args) {
 		
-		Cachorro cao = new Cachorro("Pinscher", 0, 'F', 0.15, 8.00);
-		Cachorro cao2 = new Cachorro("Pit Bull", 1, 'M', 0.40, 22.00);
-		List<Cachorro> cachorros = new ArrayList<>();
-		cachorros.add(cao);
-		cachorros.add(cao2);
+		List<Integer> numeros = new ArrayList<>();
+		numeros.add(100);
+		numeros.add(90);
+		numeros.add(15);
+		numeros.add(76);
 		IDecisaoModelContext arvDec = new IDecisaoModelContext();
-		arvDec.setDecMod(new Unfitted(2, 1, 1));
-		arvDec.fitContext(cachorros);
-		arvDec.predictContext(cachorros);
-		arvDec.avaliaModeloContext(cachorros);
-		arvDec.imprimirModelContext();
+		arvDec.setDecMod(new Unfitted(5, 0, 1));
+		arvDec.imprimirModelContext(numeros);
+		
 
 	}
 

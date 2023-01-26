@@ -2,7 +2,6 @@ package br.com.ufu.rafael.arvorededecisao.controle;
 
 import java.util.List;
 
-import br.com.ufu.rafael.arvorededecisao.modelo.Cachorro;
 import br.com.ufu.rafael.arvorededecisao.modelo.IDecisaoModelEntity;
 
 public class IDecisaoModelContext {
@@ -15,27 +14,27 @@ public class IDecisaoModelContext {
 		
 	}
 	
-	public List<Cachorro> fitContext(List<Cachorro> cachorros){
+	public void fitContext(List<Integer> numeros){
 		
-		return this.decModel.fit(cachorros);
-		
-	}
-	
-	public List<Cachorro> predictContext(List<Cachorro> cachorros){
-		
-		return this.decModel.predict(cachorros);
+		this.decModel.fit(numeros);
 		
 	}
 	
-	public void avaliaModeloContext(List<Cachorro> cachorro) {
+	public void predictContext(Integer numero){
 		
-		this.decModel.avaliaModelo(cachorro);
+		this.decModel.predict(numero);
 		
 	}
 	
-	public void imprimirModelContext() {
+	public void avaliaModeloContext(List<Integer> numeros) {
 		
-		this.decModel.imprimeModelo();
+		this.decModel.avaliaModelo(numeros);
+		
+	}
+	
+	public void imprimirModelContext(List<Integer> numeros) {
+		
+		this.decModel.imprimeModelo(numeros);
 		
 	}
 

@@ -1,6 +1,5 @@
 package br.com.ufu.rafael.arvorededecisao.modelo;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class Fitted implements IDecisaoModelEntity {
@@ -54,92 +53,62 @@ public class Fitted implements IDecisaoModelEntity {
 		this.modo = modo;
 	}
 		
-	public List<Cachorro> fit(List<Cachorro> cachorros) {
+	public void fit(List<Integer> numeros) {
 					
-		for(Cachorro cachorro: cachorros) {
+		System.out.println("\nMetodo Fit nao implementado no modelo Fitted.\n");
 			
-			try {
-				
-				DecimalFormat df = new DecimalFormat("#.##");
-				cachorro.setPeso(Double.valueOf(df.format(cachorro.getPeso())));
-				
-			} catch(Exception e) {
-				
-				System.out.println("Valor do peso nao pode ser normalizado.");
-				
+	}
+		
+	public void predict(Integer numero) {
+			
+		System.out.println("Realizado a predicao desse novo dado pelo modelo Fitted.");
+			
+	}
+		
+	public Integer avaliaModelo(List<Integer> numeros) {
+		
+		
+		Double media = 0.0;
+		for(Integer numero: numeros) {
+			
+			if(numero>60 && numero<130) {
+				this.medidaInformacao++;
 			}
-			
-			try {
-				
-				cachorro.setSexo(Character.toUpperCase(cachorro.getSexo()));
-				
-			} catch(Exception e) {
-				
-				System.out.println("Valor para a variavel sexo nao pode ser normalizado.");
-				
-			}
-			
-			
 		}
+		
+		this.setMedidaInformacao(this.medidaInformacao);
+			
+			media = this.medidaInformacao/numeros.size();
+			
+			if(media>0.80) {
+				this.setAvaliacaoModelo(4);
+			}
+			else if(media>0.60 && media<=0.80) {
+				this.setAvaliacaoModelo(3);
+			}
+			else if(media>0.40 && media<=0.60) {
+				this.setAvaliacaoModelo(2);
+			}
+			else {
+				this.setAvaliacaoModelo(1);
+				 }
 		
 		this.setModo('F');
-		return cachorros;
-	
-			
-	}
+		return this.getAvaliacaoModelo();
 		
-	public List<Cachorro> predict(List<Cachorro> novosCachorros) {
-			
-		//fazendo predicao de novos dados
-		((Fitted) novosCachorros).avaliaModelo(novosCachorros);
-		return novosCachorros;
-			
-	}
-		
-	public void avaliaModelo(List<Cachorro> cachorro) {
-		
-		Integer ind = 0;
-		for(Cachorro cao: cachorro) {
-			
-			ind++;
-			if(cao.getTamanho()>0.40 && cao.getTamanho()<0.50) {
-				if(cao.getPeso()>25 && cao.getPeso()<35) {
-					
-					this.medidaInformacao++; 
-					
-				}
-			}
-		}	
-		
-	if((medidaInformacao/ind)<0.25)	{
-			
-			this.setAvaliacaoModelo(1);
-			this.setModo('U');
-			
-		} else if((medidaInformacao/ind)>=0.25 && (medidaInformacao/ind)<0.5){
-			
-			this.setAvaliacaoModelo(2);
-			this.setModo('I');
-			
-		} else if((medidaInformacao/ind)>=0.5 && (medidaInformacao/ind)<0.70){
-			
-			this.setAvaliacaoModelo(3);
-			this.setModo('F');
-			
-		} else if((medidaInformacao/ind)>0.70){
-			
-			this.setAvaliacaoModelo(4);
-			this.setModo('F');
-			
 		}
-				
-	}
 		
-	public void imprimeModelo() {
-			
-		System.out.println("Numero de arvores = " + this.getNumeroArvores() + "\n" + this.getMedidaInformacao() +
-				"\n" + this.getTipoTarefa() +  "\n" + this.getAvaliacaoModelo() + "\n" + this.getModo());
-			
+	
+	public void imprimeModelo(List<Integer> numeros) {
+		
+		System.out.println("Modo Fitted\n");
+		for(Integer numero: numeros) {
+			System.out.println("Valor inteiro = " + numero + "\n");
+		}
+		
+		System.out.println("\nAvaliacao Modelo = " + avaliaModelo(numeros) + "\n" + "Modo = " + this.getModo() + "\n" + "Numero de arvores = " + this.getNumeroArvores() + 
+						   "\n" + "Medida informacao = " + this.getMedidaInformacao() + this.getTipoTarefa() + "\n");
+		 
 	}
 
 }
