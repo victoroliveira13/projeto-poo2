@@ -35,6 +35,11 @@ public class Classificado extends Objeto implements Comparable<Classificado>{
         return tipo;
     }
 
+    @Override
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public Double getDistancia() {
         return distancia;
     }

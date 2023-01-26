@@ -34,6 +34,11 @@ public class Desconhecido extends Objeto{
         this.tipo = tipo;
     }
 
+    @Override
+    public String getTipo() {
+        return this.tipo;
+    }
+
     public String toString() {
         return "\n{X: " + this.x
                 + ", Y: " + this.y
